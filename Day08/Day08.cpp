@@ -9,13 +9,15 @@
 using namespace std;
 
 int main() {
-	string n;
-	getline(cin, n);
+
+	int n;
+	cin >> n;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 	map<string, string> phoneBook;
 
 	int i = 0;
-	while (i < stoi(n)) {
+	while (i < n) {
 		string line;
 		getline(cin, line);
 
@@ -35,20 +37,14 @@ int main() {
 	}
 
 	string line;
-	bool found = false;
-	while (std::getline(std::cin, line)) {
-		for (auto const& pair : phoneBook) {
-			if (line == pair.first) {
-				cout << pair.first << "=" << pair.second << endl;
-				found = true;
-			}
-		}
-		if (!found) {
+	while (getline(cin, line)) {
+		auto it = phoneBook.find(line);
+		if (it != phoneBook.end()) {
+			cout << it->first << "=" << it->second << endl;
+		} else {
 			cout << "Not found" << endl;
 		}
-		found = false;
 	}
 
 	return 0;
 }
-
